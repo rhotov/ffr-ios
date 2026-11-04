@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+# Scope the already-installed Metal toolchain to this build when Xcode's
+# component resolver still selects its missing-component stub.
+if [[ $# -ge 3 && ( "$1" == -sdk || "$1" == --sdk ) && ( "$3" == metal || "$3" == metallib ) && -n "${FFR_METAL_TOOLCHAIN:-}" ]]; then
+    FFR_SHADER_SDK="$2"
+    shift 2
+    FFR_SHADER_TOOL="$1"
+    shift
+    if [[ "$FFR_SHADER_SDK" == macosx ]]; then
+        export SDKROOT="$FFR_MACOS_SDKROOT"
+    fi
+    if [[ "$FFR_SHADER_TOOL" == metal && -n "${FFR_METAL_MODULE_CACHE:-}" ]]; then
+        exec "$FFR_METAL_TOOLCHAIN/usr/bin/metal" "-fmodules-cache-path=$FFR_METAL_MODULE_CACHE" "$@"
+    fi
+    exec "$FFR_METAL_TOOLCHAIN/usr/bin/$FFR_SHADER_TOOL" "$@"
+fi
+exec /usr/bin/xcrun "$@"

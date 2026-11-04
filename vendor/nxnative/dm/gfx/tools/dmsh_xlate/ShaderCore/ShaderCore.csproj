@@ -1,0 +1,27 @@
+<!-- Rebuild only the vendored, MIT-licensed shader translator. Common and
+     Spv.Generator remain the separately fingerprinted, supplied dependencies;
+     this avoids restoring the unrelated desktop application's package graph. -->
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>preview</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AssemblyName>Ryujinx.Graphics.Shader</AssemblyName>
+    <RootNamespace>Ryujinx.Graphics.Shader</RootNamespace>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+    <RyuSrc Condition="'$(RyuSrc)' == ''">$(MSBuildThisFileDirectory)../../../../third_party/ryujinx</RyuSrc>
+    <ShaderRoot>$(RyuSrc)/src/Ryujinx.Graphics.Shader</ShaderRoot>
+    <XlateDependencies Condition="'$(XlateDependencies)' == ''">$(MSBuildThisFileDirectory)../../dmsh_xlate_bin</XlateDependencies>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(ShaderRoot)/**/*.cs" Exclude="$(ShaderRoot)/obj/**/*.cs;$(ShaderRoot)/bin/**/*.cs" />
+    <Reference Include="Ryujinx.Common"><HintPath>$(XlateDependencies)/Ryujinx.Common.dll</HintPath></Reference>
+    <Reference Include="Spv.Generator"><HintPath>$(XlateDependencies)/Spv.Generator.dll</HintPath></Reference>
+    <EmbeddedResource Include="$(ShaderRoot)/CodeGen/Glsl/HelperFunctions/*.glsl" LogicalName="Ryujinx.Graphics.Shader.CodeGen.Glsl.HelperFunctions.%(Filename)%(Extension)" />
+    <EmbeddedResource Include="$(ShaderRoot)/**/*.cs" Exclude="$(ShaderRoot)/obj/**/*.cs;$(ShaderRoot)/bin/**/*.cs" LogicalName="shader_src/%(RecursiveDir)%(Filename)%(Extension)" />
+    <EmbeddedResource Include="$(ShaderRoot)/**/*.glsl" LogicalName="shader_src/%(RecursiveDir)%(Filename)%(Extension)" />
+    <EmbeddedResource Include="ShaderCore.csproj" LogicalName="shader_recipe" />
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo"><_Parameter1>dmsh_bindless_tests</_Parameter1></AssemblyAttribute>
+  </ItemGroup>
+</Project>

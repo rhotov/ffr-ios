@@ -1,0 +1,9 @@
+[package]
+name = "nxabi"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+[lib]
+crate-type = ["staticlib", "rlib"]
+[dependencies]
+nxfs = { path = "../nxfs" }

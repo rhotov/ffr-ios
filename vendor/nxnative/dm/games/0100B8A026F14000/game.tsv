@@ -1,0 +1,36 @@
+# FINAL FANTASY RESONANCE, Hong Kong release, update 1.0.1.
+title_id	0100B8A026F14000
+program_id	0100B8A026F14000
+name	FINAL FANTASY RESONANCE
+ipa	FinalFantasyResonance-HK.ipa
+app_category	public.app-category.games
+
+build	v65536	1.0.1	main=b7f965b9d7227db8e29f04e84ea7331b	subsdk0=ab62fe8edd07a6a293f885d54359e559	sdk=0023a1b06130cd795f7bc4613772af0a
+package	v65536
+shader_versions	v65536
+modules	main subsdk0 sdk
+romfs_marker	FFRS/Content/Paks/FFRS-Switch.ucas
+zip_store	.pak:.ttf:.txt:.ucas:.utoc:.metallib
+
+# Baseline at the game's native 30 fps. DM_FPS_TARGET=60 is available for
+# separate validation; the two console variable addresses were remeasured.
+fps_target	30
+
+# NPDM system resource: 20 MiB. nninitStartup parses this MB argument and
+# caps it below 4096 before reserving the engine region. SDK build 0023a1b0
+# receives its existing build-gated 62 MiB node-area reduction.
+game_args	-SwitchVirtualAddressSpaceSize=4064
+mem_reserve	0x140000000
+mem_alias	0x118000000
+mem_stack	0x10000000
+app_pool	0xCD500000
+sys_resource	0x1400000
+
+pad_layout	full
+
+# The regional renderer uses the same NVN/Unreal shader archive format.
+# Shader tables must be generated from this release's own archives; no
+# shader identity or coverage is inferred from the other-region profile.
+tex_dyn_slots	on
+shader_groups	ShaderArchive-Global-=global ShaderArchive-=game
+shader_note	FINAL FANTASY RESONANCE Hong Kong shaders

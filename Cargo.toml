@@ -1,0 +1,12 @@
+[workspace]
+resolver = "3"
+members = ["crates/nxfs", "crates/nxabi", "crates/nxport"]
+
+[workspace.package]
+edition = "2024"
+license = "MIT"
+version = "0.1.0"
+
+[profile.release]
+opt-level = 2
+overflow-checks = true

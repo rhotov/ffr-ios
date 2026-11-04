@@ -1,0 +1,40 @@
+# Local game inputs and credentials
+*.nsp
+*.nsz
+*.xci
+*.xcz
+*.keys
+
+# Generated game content, caches, saves and diagnostics
+/data/
+/target/
+/dist/
+/build-ipad/
+/.venv/
+__pycache__/
+*.pyc
+.DS_Store
+
+# Local signing, Xcode and packaged builds
+*.p12
+*.pfx
+*.mobileprovision
+*.provisionprofile
+*.xcuserstate
+xcuserdata/
+*.ipa
+*.app/
+*.log
+.env
+/.dotnet-local/
+
+# Regenerated shader data and translator output
+/vendor/nxnative/dm/games/0100B8A026F14000/shader_map.tsv*
+/vendor/nxnative/dm/games/0100B8A026F14000/shader_facts.tsv
+/vendor/nxnative/dm/games/0100B8A026F14000/shader_pairs.tsv
+/vendor/nxnative/dm/host/gen/
+/vendor/nxnative/dm/gfx/tools/dmsh_xlate/ShaderCore/bin/
+/vendor/nxnative/dm/gfx/tools/dmsh_xlate/ShaderCore/obj/
+/vendor/nxnative/dm/gfx/tools/dmsh_xlate_bin/*
+!/vendor/nxnative/dm/gfx/tools/dmsh_xlate_bin/Ryujinx.Common.dll
+!/vendor/nxnative/dm/gfx/tools/dmsh_xlate_bin/Spv.Generator.dll
